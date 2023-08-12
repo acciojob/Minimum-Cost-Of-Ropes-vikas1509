@@ -1,24 +1,31 @@
-<!DOCTYPE html>
-
 <html>
-
 <head>
 </head>
-
 <body>
     <form id="form">
         <label for="rope-lengths">Enter rope lengths:</label>
         <input type="text" id="rope-lengths">
         <button type="button" onclick="calculateMinCost()">Calculate</button>
-      </form>
-      <div id="result"></div>
+    </form>
+    <div id="result"></div>
+    <script>
+        function calculateMinCost() {
+            let ropesInput = document.getElementById("rope-lengths").value;
+            let ropes = ropesInput.split(",").map(str => parseInt(str.trim())); // Convert to an array of numbers
+            
+            let totalCost = 0;
 
-<script>
-    type="text/javascript" src="./script.js"
+            while (ropes.length > 1) {
+                ropes.sort((a, b) => a - b); // Sort the ropes in ascending order
+                const firstRope = ropes.shift(); // Remove the smallest rope from the front
+                const secondRope = ropes.shift(); // Remove the second smallest rope from the front
+                const sum = firstRope + secondRope;
+                totalCost += sum;
+                ropes.push(sum);
+            }
 
-  </script>
-  
-
+            document.getElementById("result").textContent = "Total cost: " + totalCost;
+        }
+    </script>
 </body>
-
 </html>
